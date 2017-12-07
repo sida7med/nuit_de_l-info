@@ -52,22 +52,17 @@ body{
 
 .recherche{
 	width: 500px;
-	height: 5em;
-	background-color: #4b4e68;
+	height: 3.9em;
+	font-size: 20px;
 	display: inline-block;
+	padding-left: 15px;
 	float: left;
-}
-
-.recherche p{
 	color: #737373;
-	padding: 20px 15px;
 	display: inline-block;
 	float: left;
-}
+	border-style: none;
+	background: #4b4e68 url("loupe.png") no-repeat right ;
 
-.recherche img{
-	padding: 30px 15px;
-	margin-left: 320px;
 }
 
 h5{
