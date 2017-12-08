@@ -37,12 +37,37 @@ const articles = [
   }
 ];
 
+const weather = [
+  {
+    id: "1",
+    location: "Sousse",
+    temp: "64 °F",
+    low: "57",
+    high: "67",
+    feel: "Partly Sunny",
+    realFeel: "67",
+    chanceRain: "15%",
+    windSpeed: "20 MPH"
+  },
+  {
+    id: "2",
+    location: "Monastir",
+    temp: "60 °F",
+    low: "52",
+    high: "63",
+    feel: "Cloudy",
+    realFeel: "63",
+    chanceRain: "45%",
+    windSpeed: "40 MPH"
+  }
+];
+
 class App extends Component {
   render() {
     return (
       <div>
         <h1> App Component </h1>
-        <Corp articles={articles}/>
+        <Corp articles={articles} weather={weather}/>
       </div>
     );
   }

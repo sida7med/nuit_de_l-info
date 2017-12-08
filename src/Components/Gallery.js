@@ -20,20 +20,20 @@ function Gallery (props){
 					<div className="sideWeather">
 						<div className="temperature-sensor">
 							<div className="temperature-degre">
-								<span>64°</span>
+								<span>{props.weather.temp}</span>
 							</div>
 							<div className="max-min">
-								<span>58°</span>
-								<span>76°</span>
+								<span>{props.weather.low}°</span>
+								<span>{props.weather.high}°</span>
 							</div>
 						</div>
 						<div className="bigIcon">
 							<img src={icon1} width="80" height="80"></img>
 						</div>
 						<div className="wethear-description">
-							<div className="climate">Partly Sunny</div>
-							<span>Real Feel: <span>67°</span></span>
-							<span>Chance of Rain: <span>49%</span></span>
+							<div className="climate">{props.weather.feel}</div>
+							<span>Real Feel: <span>{props.weather.realFeel}°</span></span>
+							<span>Chance of Rain: <span>{props.weather.chanceRain}</span></span>
 						</div>
 						<div className="weekly">
 							<ul className="weekly-forecast">
@@ -81,8 +81,8 @@ function Gallery (props){
 							</ul>
 						</div>
 						<div className="date-et-place">
-							<h5 className="date">Saturday, March 26th</h5>
-							<div className="place">San Francisco, CA</div>
+							<h5 className="date">Friday, Sept 08th</h5>
+							<div className="place">{props.weather.location}</div>
 						</div>
 					</div>
 				</div>

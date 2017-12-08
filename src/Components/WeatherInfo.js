@@ -14,18 +14,19 @@ class WeatherInfo extends React.Component
   }
 
   render() {
+		console.log(this.props.weather.id);
     return (
       <div className="weatherInfo">
         <div className="container">
           <div className="up">
             <div className="left">
-              <div className="date">Saturday, March 26th</div>
+              <div className="date">Friday, Sept 08th</div>
               <div className="place">{this.props.localisation[0].formatted_address}</div>
             </div>
             <div className="center">
-              <div className="temp">64°F</div>
-              <span>low:55 </span><span> hight:55</span>
-              <div className="climate">Partly Sunny</div>
+              <div className="temp">{this.props.weather.temp}</div>
+              <span>low:{this.props.weather.high} </span><span> high:{this.props.weather.high}</span>
+              <div className="climate">{this.props.weather.feel}</div>
             </div>
             <div className="right">
               <div>updated : 07/12/2017</div>
@@ -35,17 +36,17 @@ class WeatherInfo extends React.Component
             <div className="desc">
               <div className="img"><img src={photo1}></img></div>
               <div>Real feel</div>
-              <div>67°</div>
+              <div>{this.props.weather.realFeel}°</div>
             </div>
             <div className="desc">
             <div className="img"><img src={photo2}></img></div>
             <div>Chances of rain</div>
-            <div>5%</div>
+            <div>{this.props.weather.chanceRain}</div>
             </div>
             <div className="desc">
             <div className="img"><img src={photo3}></img></div>
             <div>Wind speed</div>
-            <div>20MPH</div>
+            <div>{this.props.weather.windSpeed}</div>
           </div>
           <div className="weather-bottom"><img src={photo4} ></img></div>
         </div>

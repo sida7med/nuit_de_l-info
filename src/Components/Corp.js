@@ -50,8 +50,6 @@ class Corp extends React.Component
   }
 
   render() {
-		console.log(this.state.localisation[0].geometry.location.lat);
-		console.log(this.state.weather.currently.icon);
     let filteredArticles = this.props.articles.filter(
        (article)=>{return (article.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);}
       );
@@ -70,11 +68,19 @@ class Corp extends React.Component
 		if (filteredArticles.length === 0) {
 			filteredArticles=articles;
 		}
-    return (
+		console.log(this.props.weather);
+		let filteredWeather = this.props.weather.filter((weath)=>{return (weath.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);})
+		console.log(filteredWeather[0]);
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		if (filteredWeather.length === 0) {
+			filteredWeather=this.props.weather;
+		}
+		console.log(filteredWeather[0]);
+		return (
       <div className="corp">
 				<Header searchValue={this.state.searchValue} onChangeSearch={this.onChangeSearch} />
-				<WeatherInfo localisation={this.state.localisation} weather={this.state.weather} />
-        <Gallery articles={filteredArticles} weather={this.state.weather} />
+				<WeatherInfo localisation={this.state.localisation} weather={filteredWeather[0]} />
+        <Gallery articles={filteredArticles} weather={filteredWeather[0]} />
     	</div>
 	    );
 	  }
