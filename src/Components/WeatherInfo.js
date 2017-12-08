@@ -12,9 +12,9 @@ class WeatherInfo extends React.Component
     this.state = {
 				  };
   }
-
+	//Distribution des détails de méteo
   render() {
-		console.log(this.props.weather.id);
+		console.log(this.props.weather[0]);
     return (
       <div className="weatherInfo">
         <div className="container">

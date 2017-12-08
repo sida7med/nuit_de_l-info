@@ -22,13 +22,36 @@ class Corp extends React.Component
 						lng: "10.634584"
 				}
 			}}],
-			weather: {currently:{icon:"clear day"}}
+			weather: {currently:{icon:"clear day"}},
+			article:[],
+			weatherData:[{_id:0,
+	    id: "1",
+	    location: " ",
+	    temp: " ",
+	    low: " ",
+	    high: " ",
+	    feel: " ",
+	    realFeel: " ",
+	    chanceRain: " ",
+	    windSpeed: " "}]
 				  };
     this.onChangeSearch = this.onChangeSearch.bind(this);
   }
-
+// initialisation de l'état et le binding de fonction onChangeSearch
 	componentDidMount()
   {
+		axios.get('https://nuitdelinfo.herokuapp.com/article').then(response=>{
+      this.setState({article:response.data});
+    })
+    .catch(function(error){
+      console.log(error);
+    }),
+		axios.get('https://nuitdelinfo.herokuapp.com/weather').then(response=>{
+      this.setState({weatherData:response.data});
+    })
+    .catch(function(error){
+      console.log(error);
+    }),
     axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=sousse').then(response=>{
       this.setState({localisation:response.data.results});
     })
@@ -41,16 +64,17 @@ class Corp extends React.Component
     .catch(function(error){
       console.log(error);
     })
-		// i couldn't find a solution for the CORS problem with axios in react due to the time
+		//réception du json depuis les api ci-dessus
+		// Je n'ai pas eu le temps nécessaire pour trouver une solution au problème de CORS axios
   }
   onChangeSearch(event) {
     let searchValue = this.state.searchValue;
     searchValue = event.target.value;
     this.setState({ searchValue });
   }
-
+// Fonction onChangeSearch pour changer l'état selon la valeur du moteur de recherche
   render() {
-    let filteredArticles = this.props.articles.filter(
+    let filteredArticles = this.state.article.filter(
        (article)=>{return (article.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);}
       );
       filteredArticles = filteredArticles.map((article)=><div className="warnning" key={article.title}>
@@ -59,7 +83,7 @@ class Corp extends React.Component
 				    		{article.title}
 				  		 </div>
 					</div>);
-    let articles = this.props.articles.map((article)=><div className="warnning" key={article.title}>
+    let articles = this.state.article.map((article)=><div className="warnning" key={article.title}>
 			  		<img src={""+article.photo+""} width="300px" height="300px" alt="news"></img>
 			 		 <div className="mid">
 			    		{article.title}
@@ -68,14 +92,11 @@ class Corp extends React.Component
 		if (filteredArticles.length === 0) {
 			filteredArticles=articles;
 		}
-		console.log(this.props.weather);
-		let filteredWeather = this.props.weather.filter((weath)=>{return (weath.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);})
-		console.log(filteredWeather[0]);
-		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		let filteredWeather = this.state.weatherData.filter((weath)=>{return (weath.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);})
 		if (filteredWeather.length === 0) {
-			filteredWeather=this.props.weather;
+			filteredWeather=this.state.weatherData;
 		}
-		console.log(filteredWeather[0]);
+		//Filtrage des données
 		return (
       <div className="corp">
 				<Header searchValue={this.state.searchValue} onChangeSearch={this.onChangeSearch} />
@@ -86,5 +107,6 @@ class Corp extends React.Component
 	  }
 
 }
+//Passation des données aux composants fils
 //====================================
 export default Corp;

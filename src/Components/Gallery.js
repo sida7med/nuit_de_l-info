@@ -9,6 +9,7 @@ import icon6 from "./img/r3ad.png";
 import icon7 from "./img/snow.png";
 import icon8 from "./img/wind.png";
 //=================================================
+//Distribution des donnnées des articles
 function Gallery (props){
 
 		return(

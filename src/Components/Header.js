@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import gif from "./car.gif";
 
 //=================================================
+//Définir l'entete de l'application
 function Gallery (props){
 
 		return(
