@@ -14,7 +14,15 @@ class Corp extends React.Component
     super(props);
     this.state = {
       searchValue:"",
-			weather: [{formatted_address:" "}]
+			localisation: [{
+				formatted_address:" ",
+				geometry:{
+					location:{
+						lat: "35.8245029",
+						lng: "10.634584"
+				}
+			}}],
+			weather: {currently:{icon:"clear day"}}
 				  };
     this.onChangeSearch = this.onChangeSearch.bind(this);
   }
@@ -22,11 +30,18 @@ class Corp extends React.Component
 	componentDidMount()
   {
     axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=sousse').then(response=>{
-      this.setState({weather:response.data.results});
+      this.setState({localisation:response.data.results});
+    })
+    .catch(function(error){
+      console.log(error);
+    }),
+		axios.get(`https://api.darksky.net/forecast/a1fc4997d64d78a307a2456130ebc5fa/${this.state.localisation[0].geometry.location.lat},${this.state.localisation[0].geometry.location.lng}`).then(response=>{
+      this.setState({weather:response});
     })
     .catch(function(error){
       console.log(error);
     })
+		// i couldn't find a solution for the CORS problem with axios in react due to the time
   }
   onChangeSearch(event) {
     let searchValue = this.state.searchValue;
@@ -35,7 +50,8 @@ class Corp extends React.Component
   }
 
   render() {
-		console.log(this.state.weather[0].formatted_address);
+		console.log(this.state.localisation[0].geometry.location.lat);
+		console.log(this.state.weather.currently.icon);
     let filteredArticles = this.props.articles.filter(
        (article)=>{return (article.location.toLowerCase().indexOf(this.state.searchValue.toLowerCase())!==-1)&&(this.state.searchValue);}
       );
@@ -48,7 +64,7 @@ class Corp extends React.Component
     return (
       <div className="corp">
 				<Header searchValue={this.state.searchValue} onChangeSearch={this.onChangeSearch} />
-				<WeatherInfo weather={this.state.weather} />
+				<WeatherInfo localisation={this.state.localisation} weather={this.state.weather} />
         <Gallery articles={filteredArticles} weather={this.state.weather} />
     	</div>
 	    );
