@@ -49,7 +49,7 @@ class Corp extends React.Component
       <div className="corp">
 				<Header searchValue={this.state.searchValue} onChangeSearch={this.onChangeSearch} />
 				<WeatherInfo weather={this.state.weather} />
-        <Gallery articles={filteredArticles} />
+        <Gallery articles={filteredArticles} weather={this.state.weather} />
     	</div>
 	    );
 	  }
